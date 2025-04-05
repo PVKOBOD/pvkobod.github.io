@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0 ">
     <title>Pivní bod</title>
@@ -10,38 +11,86 @@ body {
     margin: 0;
     padding: 0;
     text-align: center;
+	background-image: url("tile09.png");
 }
 img {
     pointer-events: none;
     user-drag: none;
     -webkit-user-drag: none;
 }
-header {
-    background-color: #fff;
-    text-align: center;
-	padding-top: 7vh;
-	padding-bottom: 1vh;
+header.main-header {
+    background-image: url("tile08.png");
+    background-size: auto;
+    background-repeat: repeat;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+	padding-top: 1vw;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 5px 10px 10px;
+    position: relative;
+    z-index: 5;
 	width: 100%;
-  display: flex;
-  justify-content: center; /* Centers horizontally */
-  align-items: center; /* Centers vertically */
 }
-header img {
-	width: 500px;
-	  display: table-cell;
-  vertical-align: middle;
+.logo {
+    width: 100%;
+    max-width: 480px;
+    height: auto;
+    object-fit: contain;
+    transition: transform 0.3s ease;
 }
-.header-strip {
-	position: absolute;
-	  top: 0;
-	  left: 0;
-	  width: 100%;
-	  z-index: 10;
-	  height: 10%;
-	  overflow: hidden;
-	  background-image: url("strip2.png");
-	  background-repeat: repeat-x;
-	  background-size: 80%;
+
+.logo:hover {
+    transform: scale(1.02);
+}
+
+nav.main-nav {
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    padding: 12px 0;
+	background-image: url("tile03.png");
+	box-shadow: rgba(0, 0, 0, 0.25) 0px -14px 28px, rgba(0, 0, 0, 0.22) 0px -10px 10px;
+box-shadow: 
+    rgba(0, 0, 0, 0.25) 0px -14px 28px, 
+    rgba(0, 0, 0, 0.22) 0px -10px 10px,
+    inset 0px 0px 3px rgba(255, 255, 255, 0.2);
+}
+
+nav.main-nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+nav.main-nav ul li {
+    margin: 0;
+}
+
+nav.main-nav ul li a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 8px 16px;
+    transition: background 0.3s, color 0.3s;
+    border-radius: 5px;
+}
+
+nav.main-nav ul li a:hover {
+    color: #B0D022;
+}
+
+@media (max-width: 600px) {
+    .logo {
+        max-width: 300px;
+    }
+    nav.main-nav ul {
+        flex-direction: column;
+        gap: 10px;
+    }
 }
 .logo {
 	height: auto;
@@ -55,17 +104,16 @@ main {
 section {
 	margin-top: 30px;
     text-align: center;
-	background-color: #fff;
 }
 h2 {
-    font-size: 30px;
+    font-size: 60px;
 	font-weight: 900;
 }
 section  p {
     font-size: 20px;
 }
 h1, h2, h3 {
-    color: #000;
+    color: #fff;
 	margin-top: 2px;
 }
 h4 {
@@ -75,7 +123,7 @@ h4 {
 	margin-bottom: 2px;
 }
 p {
-    color: #000;
+	color: white;
 }
 
 /* Center the products horizontally */
@@ -87,13 +135,18 @@ p {
 
 /* Ensures each product aligns properly */
 .product {
-    align-items: center;
-    text-align: center;
-    max-width: 400px;
+	height: 455px;
+    width: 300px;
     padding: 5px;
-    min-height: 120px;
-		border: solid;
-	border-width: 2px;
+	border-radius: 5px;
+	background-image: url("tile08.png");
+	box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+	z-index: 2;
+	box-shadow: 
+    rgba(0, 0, 0, 0.25) 0px -14px 28px, 
+    rgba(0, 0, 0, 0.22) 0px -10px 10px,
+    inset 0px 0px 3px rgba(255, 255, 255, 0.2);
+	
 }
 
 .product img {
@@ -102,12 +155,19 @@ p {
 	object-fit: contain;
 }
 
-.product-info {
-    flex-direction: column;
-    justify-content: center;
-    width: 300px;
+.info_product {
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
+    margin: 10px 0;
 }
-
+.info_product {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin: 10px 0;
+}
 ol {
     display: inline-block;
     text-align: left;
@@ -119,31 +179,6 @@ footer {
     color: #fff;
     text-align: center;
     padding: 10px;
-}
-nav {
-    background-color: #000;
-    padding: 10px 0;
-    position: relative;
-    z-index: 10;
-}
-nav ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-}
-nav ul li {
-    margin: 0 15px;
-}
-nav ul li a {
-    text-decoration: none;
-    color: white;
-    font-size: 18px;
-    font-weight: bold;
-}
-nav ul li a:hover {
-    color: #B0D022;
 }
 .parent {
     display: flex;
@@ -181,35 +216,49 @@ table {
 	width: 100%;
 }
 table, th, td {
-	border: 1px solid black;
+	border: 1px solid white;
 	border-collapse: collapse;
 }
 caption {
 	border: solid;
 	border-width: 1px 1px 0px 1px;
 }
+.cardback {
+	background-image: url("tile03.png");
+	transform: rotate(3deg);
+	z-index: 0;
+	color: white;
+}
+.cardback h3 {
+    color: white;
+}
+
     </style>
 </head>
 <body>
-<div class="header-strip"></div>
-<header>
-<img src="testlogo4.png" draggable="false">
-</header>
-<nav>
+
+
+<header class="main-header">
+  <div class="header-top">
+    <img src="testlogo4.png" alt="Pivní bod logo" class="logo" draggable="false">
+  </div>
+  <nav class="main-nav">
     <ul>
-        <li><a href="#">DOMŮ</a></li>
-        <li><a href="#about">O NÁS</a></li>
-        <li><a href="#products">NUTRIČNÍ HODNOTY</a></li>
-        <li><a href="#contact">KONTAKT</a></li>
+	  <li><a href="#offer">NAŠE NABÍDKA</a></li>
+	  <li><a href="#aboutus">O NÁS</a></li>
+      <li><a href="#contact">KONTAKT</a></li>
     </ul>
-</nav>
+  </nav>
+</header>
+
+
     <main>
         <section class="parent">
 		<div class="child">
             <h2>Objevte jedinečnou chuť našeho piva</h2>
             <p>Naše pivovarnická tradice sahá až do minulého století, kdy jsme začali vyrábět prvotřídní řemeslné pivo s láskou k detailu.</p></div>
-			<div class="child"><img src="beer.png"></div>
-        </section>
+			<div class="child"><img src="testimage.jpg"></div>
+        </section >
 		
         <section class="parent reverse">
 		<div class="child"><img src="testimage.jpg"></div>
@@ -217,32 +266,59 @@ caption {
             <h2>Pečlivě vybrané suroviny, dokonalá chuť</h2>
             <p>Používáme pouze ty nejkvalitnější sladové a chmelové odrůdy, abychom vám přinesli osvěžující a plné pivo, které si zamilujete.</p></div>
         </section>
-    <section>
+		
+<!--SEKCE PIV-->		
+    <section id="offer">
         <h2>Naše nabídka řemeslných piv</h2>
         <div class="product-container">
             <div class="product">
                 <img src="liska_lezak.png" alt="Obrázek">
-                <div class="product-info">
-                    <h3>Liškuv ležak svetlý pivo 4,7%</h3>
-                    <h4 onclick="toggleNutritionInfo(event)" style="cursor: pointer;">Nutriční hodnoty</h4>
-                    <span class="nutrition-info">Alergeny: Obiloviny obsahující lepek<br>
-                        <span>Složení: voda, JEČNÉ slady, chmelové produkty <br>
-                        <span>Způsob kvašení piva: Spodně</span><br>
-                        <table><caption>Výživové hodnoty: na 100 ml </caption>
-                            <tr>
-                                <td>Energetická hodnota</td>
-                                <td>185 kJ</td>
-                            </tr>
-                            <tr>
-                                <td>Energetická hodnota </td>
-                                <td> 44 kcal</td>
-                            </tr>
-                        </table>
-                    </span>
-                </div>
+				<h3>Světlé Pivo 4,7%</h3>
             </div>
-        </div>
+			
+			
+			            <div class="product cardback">
+<div class="product-info">
+    <h3>Lišákův Ležák - Světlé Pivo 4,7%</h3>
+   
+    
+    <div class="info_product">
+        <strong>Složení:</strong> Voda, Ječné slady, Chmelové produkty.
+    </div>
+    
+    <div class="info_product">
+        <strong>Způsob kvašení piva:</strong> Spodně kvašené – jedná se o klasický způsob kvašení, při kterém dochází ke kvašení při nižších teplotách.
+    </div>
+    
+    <table>
+        <caption><strong>Výživové hodnoty: na 100 ml</strong></caption>
+        <tr>
+            <td>Energetická hodnota</td>
+            <td>185 kJ</td>
+        </tr>
+        <tr>
+            <td>Energetická hodnota (kalorie)</td>
+            <td>44 kcal</td>
+        </tr>
+        <tr>
+            <td>Poznámka:</td>
+            <td>Tyto výživové hodnoty jsou orientační a mohou se mírně lišit v závislosti na výrobní šarži.</td>
+        </tr>
+    </table>
+
+    <div class="info_product">
+        <strong>Alergeny:</strong> Obsahuje alergenní složku – obiloviny obsahující lepek, konkrétně ječný slad.
+    </div>
+</div>
+            </div>
+			
+			
+        </div><!--KONEC PRODUCT CONTAINER-->
     </section>
+<!--KONEC SEKCE PIV-->
+	
+	
+	
         <section>
             <h2>Pivo pro každou příležitost</h2>
             <p>Ať už si vychutnáváte večer s přáteli, grilujete na zahradě nebo si jen chcete dopřát něco výjimečného, naše piva jsou ideální volbou.</p>
@@ -264,9 +340,51 @@ caption {
                 </li>
             </ol>
         </section>
+		
+		        <section class="parent" id="aboutus">
+		<div class="child">
+            <h2>O NÁS</h2>
+            <p>Jsme parta nadšenců, která věří, že pivo je víc než jen nápoj – je to zážitek. </p><p>Vznikli jsme z lásky k poctivému řemeslu a touhy přinést lidem něco výjimečného. Naše cesta začala v malé garáži s několika sudy, dnes nabízíme širokou škálu piv, která spojují tradiční postupy s moderními chutěmi.</p> <p>Každý náš ležák, ale i speciály, vznikají s důrazem na kvalitu a originalitu. Přijďte ochutnat – rádi vás přivítáme u nás na čepu!</p></div>
+			<div class="child"><img src="testimage.jpg"></div>
+        </section >
+
+            <div id="map" style="width: 100%; height: 400px;"></div>
+<!--KONTAKT-->
+<section id="contact">
+    <h2>Kontakt</h2>
+    <p>Máte dotazy nebo chcete vědět více o našich pivech? Neváhejte nás kontaktovat!</p>
+    
+    <div class="contact-container">
+        <div class="contact-info">
+            <div>
+                <h3>Adresa:</h3>
+                <p>Pivní bod, U Pivovaru 1234, 101 00 Praha 1, Česká republika</p>
+            </div>
+
+            <div>
+                <h3>Telefon:</h3>
+                <p>+420 123 456 789</p>
+            </div>
+
+            <div>
+                <h3>Email:</h3>
+                <p>kontakt@pivnibod.cz</p>
+            </div>
+
+            <div>
+                <h3>Otevírací doba:</h3>
+                <p>Pondělí – Pátek: 10:00 – 22:00<br>
+                Sobota – Neděle: 12:00 – 20:00</p>
+            </div>
+        </div>
+
+    </div>
+</section>
+		
+		
     </main>
     <footer>
-        <p>&copy; 2025 PIVO VÝROBCE. Všechna práva vyhrazena.</p>
+        <p>&copy; 2025 PVKO a.s. Všechna práva vyhrazena. <strong>Fiktivní web pro školní projekt.</strong></p>
     </footer>
 </body>
     <script>
@@ -277,4 +395,16 @@ caption {
             }
         }
     </script>
+	<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+  const map = L.map('map').setView([50.0747, 14.4276], 15);
+
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+  attribution: '&copy; OpenStreetMap contributors & Carto',
+  subdomains: 'abcd',
+  maxZoom: 19
+}).addTo(map);
+  // Marker
+  L.marker([50.0747, 14.4276]).addTo(map)
+</script>
 </html>
