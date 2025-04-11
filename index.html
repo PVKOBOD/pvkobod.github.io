@@ -44,6 +44,7 @@ header.main-header {
     height: auto;
     object-fit: contain;
     transition: transform 0.3s ease;
+	mix-blend-mode: multiply;
 }
 
 .logo:hover {
@@ -54,7 +55,7 @@ nav.main-nav {
     width: 100%;
     background-color: rgba(0, 0, 0, 0.85);
     padding: 12px 0;
-	background-image: url("tile03.png");
+	background-image: url("metal_tile.png");
 	box-shadow: rgba(0, 0, 0, 0.25) 0px -14px 28px, rgba(0, 0, 0, 0.22) 0px -10px 10px;
 box-shadow: 
     rgba(0, 0, 0, 0.25) 0px -14px 28px, 
@@ -137,7 +138,9 @@ p {
 .product-container {
     display: flex;
     justify-content: center;
-    flex-wrap: wrap; 
+    flex-wrap: wrap;
+	box-sizing: border-box;
+
 }
 
 /* Ensures each product aligns properly */
@@ -191,7 +194,6 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap; /* Ensures responsiveness */
     text-align: center;
 }
 .child {
@@ -199,14 +201,12 @@ footer {
       margin: 5px;
 	  max-width: 50%;
   }
-.child img {
-    width: 100%;
+.sec_image {
+	width: 100%;
+    max-width: 600px;
     height: auto;
-    object-fit: cover; /* Ensures the image fills its container */
-    transition: transform 0.5s ease-in-out; /* Smooth zoom effect */
-}
-.child:hover img {
-    transform: scale(1.05); /* Zoom in effect */
+	box-shadow: rgba(0, 0, 0, 0.25) 0px -14px 28px, rgba(0, 0, 0, 0.22) 0px -10px 10px, rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 5px 10px 10px, inset 0px 0px 3px rgba(255, 255, 255, 0.2);
+    object-fit: cover
 }
 @media (max-width: 1138px) { /* Adjust breakpoint as needed */
     .parent {
@@ -240,8 +240,9 @@ caption {
     color: white;
 }
 .line {
-	background-image: url("tile03.png");
+	background-image: url("metal_tile.png");
 	box-shadow: rgba(0, 0, 0, 0.25) 0px -14px 28px, rgba(0, 0, 0, 0.22) 0px -10px 10px;
+	z-index: 4;
 box-shadow: 
     rgba(0, 0, 0, 0.25) 0px -14px 28px, 
     rgba(0, 0, 0, 0.22) 0px -10px 10px,
@@ -249,7 +250,6 @@ box-shadow:
 	rgba(0, 0, 0, 0.22) 5px 10px 10px,
     inset 0px 0px 3px rgba(255, 255, 255, 0.2);
 	height: 45px;
-	z-index: 10;
 	position: relative;
 	margin-top: 40px;
 }
@@ -303,6 +303,18 @@ nav.main-nav {
 	.header-top {
 	display: none;
 	}
+	.child {
+	margin: 30px 10px 0 10px;
+	}
+	section p {
+	font-size: 30px;
+	}
+	header.main-header {
+	padding-top: 0px;
+	}
+	.offer {
+	margin: 30px 10px 0 10px;
+	}
 }
     </style>
 </head>
@@ -311,7 +323,7 @@ nav.main-nav {
 
 <header class="main-header">
   <div class="header-top">
-    <img src="testlogo4.png" alt="Pivní bod logo" class="logo" draggable="false">
+    <img src="logo_pivnibod_texturized.png" alt="Pivní bod logo" class="logo" draggable="false">
   </div>
 <nav class="main-nav">
 <img src="testlogo4.png" alt="Pivní bod logo" class="logo nav-logo" draggable="false">
@@ -330,11 +342,11 @@ nav.main-nav {
 		<div class="child">
             <h2>Objevte jedinečnou chuť našeho piva</h2>
             <p>Naše pivovarnická tradice sahá až do minulého století, kdy jsme začali vyrábět prvotřídní řemeslné pivo s láskou k detailu.</p></div>
-			<div class="child"><img src="testimage.jpg"></div>
+			<div class="child"><img class="sec_image" src="testimage.png"></div>
         </section >
 		
         <section class="parent reverse">
-		<div class="child"><img src="testimage.jpg"></div>
+		<div class="child"><img class="sec_image" src="testimage.png"></div>
 		<div class="child">
             <h2>Pečlivě vybrané suroviny, dokonalá chuť</h2>
             <p>Používáme pouze ty nejkvalitnější sladové a chmelové odrůdy, abychom vám přinesli osvěžující a plné pivo, které si zamilujete.</p></div>
@@ -345,7 +357,7 @@ nav.main-nav {
 	
 	
 <!--SEKCE PIV-->		
-    <section id="offer">
+    <section class="offer" id="offer">
         <h2>Naše nabídka řemeslných piv</h2>
         <div class="product-container">
             <div class="product">
@@ -422,14 +434,14 @@ nav.main-nav {
 		<div class="child">
             <h2>O NÁS</h2>
             <p>Jsme parta nadšenců, která věří, že pivo je víc než jen nápoj – je to zážitek. </p><p>Vznikli jsme z lásky k poctivému řemeslu a touhy přinést lidem něco výjimečného. Naše cesta začala v malé garáži s několika sudy, dnes nabízíme širokou škálu piv, která spojují tradiční postupy s moderními chutěmi.</p> <p>Každý náš ležák, ale i speciály, vznikají s důrazem na kvalitu a originalitu. Přijďte ochutnat – rádi vás přivítáme u nás na čepu!</p></div>
-			<div class="child"><img src="testimage.jpg"></div>
+			<div class="child"><img src="pivo_dvur.png" class="sec_image"></div>
         </section >
 		
 		
 <div class="line"></div>
 
 
-            <div id="map" style="width: 100%; height: 400px;"></div>
+            <div id="map" style="width: 100%; height: 400px; z-index: 3;"></div>
 <!--KONTAKT-->
 <section id="contact">
     <h2>Kontakt</h2>
